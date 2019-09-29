@@ -1,15 +1,13 @@
-import {} from "../actions/actionTypes";
+import * as actionTypes from "../actions/actionTypes";
 
-const initialState = {
-  // complete me
-};
+const initialState = null;
 
-const reducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    // complete me
+    case actionTypes.SET_CURRENT_USER:
+      const user = action.payload;
+      return user;
     default:
       return state;
   }
 };
-
-export default reducer;
