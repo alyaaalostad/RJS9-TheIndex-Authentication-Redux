@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import * as actionCreators from "./redux/actions";
 // Logo
 import logo from "./assets/theindex.svg";
 
@@ -16,20 +17,20 @@ class Sidebar extends Component {
         </section>
 
         <div className="fixed-bottom">
-          {!this.props.user && (
-            <Link to="/login" className="btn btn-info m-2 float-left">
-              Login
-            </Link>
-          )}
-          {!!this.props.user && (
-            <Link to="/signup" className="btn btn-success m-2 float-left">
-              Signup
-            </Link>
-          )}
-          {this.props.user && (
+          {this.props.user ? (
             <Link to="/authors" className="btn btn-success m-2 float-left">
               Logout
             </Link>
+          ) : (
+            (
+              <Link to="/signup" className="btn btn-success m-2 float-left">
+                Signup
+              </Link>
+            ) && (
+              <Link to="/login" className="btn btn-info m-2 float-left">
+                Login
+              </Link>
+            )
           )}
         </div>
       </div>
@@ -41,5 +42,11 @@ const mapStateToProps = state => {
     user: state.user
   };
 };
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(actionCreators.logout())
+});
 
-export default connect(mapStateToProps)(Sidebar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Sidebar);
